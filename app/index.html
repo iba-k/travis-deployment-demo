@@ -1,5 +1,6 @@
 <html>
 <head>
+	<link href="style.css" type="text/css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
   <script type="text/javascript"
         src="https://www.google.com/jsapi?autoload={
@@ -10,27 +11,26 @@
           }]
         }"></script>
 
-  <script type="text/javascript">
-  jQuery.getJSON( "sample.json", function( json ){
-        var data = [['Year', '人口']];
 
-        for ( var i=0; i<json.length; i++ ) {
-            data.push( [ json[i].year, parseInt(json[i].population) ] );
-        }
-
-        var options = {
-          title: '年度別人口',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(google.visualization.arrayToDataTable( data ), options);
-  } );
-  </script>
 </head>
 <body>
-  <div id="curve_chart" style="width: 900px; height: 500px"></div>
+
+<h1>和歌山観光情報のイベント情報リスト:</h1>
+
+	<table id="event" border="1"></table>
+	  <script type="text/javascript">
+  jQuery.getJSON( "sample.json", function( json ){
+			 $("#event").append("<tr><td>イベント名</td><td>開始時期</td><td>終了時期</td><td>開催曜日</td><td>備考</td></tr>")
+        for ( var i=0; i<json.length; i++ ) {
+					
+					$("#event").append("<tr><td>"+json[i].name+"</td><td>"+json[i].start+"</td><td>"+json[i].end+"</td><td>"+json[i].date+"</td><td>"+json[i].remarks+"</td></tr>")
+					/*console.log(json[i]);*/
+        }
+       
+
+  } );
+  </script>
+	 <a href="https://github.com/wakayama-pref-org/tourism_information_event">和歌山県GitHubより</a>
+
 </body>
 </html>
